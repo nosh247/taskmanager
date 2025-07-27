@@ -193,17 +193,6 @@ npm test
 4. Create pull request
 5. Code review and merge
 
-### Commit Convention
-
-```
-feat: add task status management
-fix: resolve task creation issue
-docs: update API documentation
-style: format code with prettier
-refactor: improve database queries
-test: add unit tests for task service
-```
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -220,51 +209,9 @@ test: add unit tests for task service
 - Ensure all tests pass
 - Add appropriate error handling
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-For support and questions:
-
-- 📖 Check the [documentation](./docs/)
-- 🐛 Create an [issue](../../issues)
-- 💬 Join our [discussions](../../discussions)
-
-## 🗺️ Roadmap
-
 ### Current Features
 - ✅ Task CRUD operations
 - ✅ Status management (Pending, In Progress, Done)
 - ✅ Responsive design
 - ✅ RESTful API
 - ✅ SQLite database
-
-### Upcoming Features
-
-- [ ] User authentication and authorization
-- [ ] Project management
-- [ ] Team collaboration
-- [ ] Comments system
-- [ ] File attachments
-- [ ] Time tracking
-- [ ] Advanced reporting
-- [ ] Real-time notifications
-- [ ] Mobile app
-- [ ] Multi-language support
-
-### Performance Improvements
-
-- [ ] Database query optimization
-- [ ] Frontend code splitting
-- [ ] CDN integration
-- [ ] Caching strategies
-
-## 🙏 Acknowledgments
-
-- [React](https://reactjs.org/) - Frontend framework
-- [ASP.NET Core](https://dotnet.microsoft.com/apps/aspnet) - Backend framework
-- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
-- [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) - ORM
-- [SQLite](https://www.sqlite.org/) - Database
