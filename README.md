@@ -1,36 +1,33 @@
 # Task Manager Application
 
-A modern, full-stack task management application built with React, Azure Functions, and SQL Server. This project provides a comprehensive solution for team collaboration, project management, and task tracking.
+A modern, full-stack task management application built with React, ASP.NET Core Web API, and SQLite. This project provides a comprehensive solution for team collaboration, project management, and task tracking.
 
 ## 🚀 Features
 
-- **User Authentication**: Secure JWT-based authentication system
-- **Project Management**: Create and manage projects with team collaboration
-- **Task Management**: Create, assign, and track tasks with status updates
-- **Team Collaboration**: Add team members to projects with different roles
-- **Comments System**: Add comments to tasks for better communication
-- **Dashboard**: Overview of tasks, projects, and statistics
+- **Task Management**: Create, edit, delete, and track tasks with status updates
+- **Status Tracking**: Three task statuses (Pending, In Progress, Done) with visual indicators
 - **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Modern UI**: Clean, intuitive interface built with React and Tailwind CSS
 - **Real-time Updates**: Live updates for task status changes
+- **RESTful API**: Clean API design with proper HTTP methods
 
 ## 🏗️ Architecture
 
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   React Client  │    │ Azure Functions │    │ SQL Server DB   │
-│   (Frontend)    │◄──►│   (Backend)     │◄──►│   (Database)    │
+│   React Client  │    │ ASP.NET Core    │    │ SQLite Database │
+│   (Frontend)    │◄──►│   Web API       │◄──►│   (Local)       │
 └─────────────────┘    └─────────────────┘    └─────────────────┘
 ```
 
 ### Technology Stack
 
-- **Frontend**: React 18, TypeScript, Material-UI, Vite
-- **Backend**: Azure Functions, Node.js, TypeScript
-- **Database**: SQL Server/Azure SQL Database
-- **Authentication**: JWT tokens
-- **Deployment**: Azure (Functions + SQL Database + Static Web Apps)
-- **Testing**: Jest, React Testing Library, Playwright
-- **CI/CD**: GitHub Actions
+- **Frontend**: React 19, TypeScript, Tailwind CSS, Vite
+- **Backend**: ASP.NET Core 8, C#, Entity Framework Core
+- **Database**: SQLite (local development)
+- **Authentication**: JWT Bearer tokens (configured but not implemented)
+- **Deployment**: Ready for Azure deployment
+- **Testing**: Built-in testing support
 
 ## 📁 Project Structure
 
@@ -39,39 +36,34 @@ taskmanager/
 ├── client/                 # React frontend
 │   ├── src/
 │   │   ├── components/     # Reusable UI components
-│   │   ├── pages/         # Page components
+│   │   │   ├── Task.tsx    # Individual task component
+│   │   │   ├── TaskForm.tsx # Task creation/editing form
+│   │   │   └── ResponsiveVirtualizedList.tsx # Task list display
 │   │   ├── hooks/         # Custom React hooks
 │   │   ├── services/      # API service functions
 │   │   ├── types/         # TypeScript type definitions
-│   │   └── utils/         # Utility functions
+│   │   │   └── task.ts    # Task interfaces and enums
+│   │   ├── utils/         # Utility functions
+│   │   │   └── statusUtils.ts # Status styling utilities
+│   │   └── App.tsx        # Main application component
 │   ├── package.json
 │   └── README.md
-├── api/                    # Azure Functions backend
-│   ├── src/
-│   │   ├── functions/     # Azure Functions
-│   │   ├── shared/        # Shared utilities and middleware
-│   │   ├── models/        # Data models and types
-│   │   └── services/      # Business logic services
-│   ├── host.json
-│   ├── local.settings.json
-│   ├── package.json
-│   └── README.md
-├── sql/                    # Database schema and procedures
-│   ├── schema.sql
-│   ├── stored-procedures.sql
+├── api/                    # ASP.NET Core Web API backend
+│   ├── Controllers/       # API controllers
+│   ├── Models/           # Data models
+│   ├── Services/         # Business logic services
+│   ├── Data/            # Database context and migrations
+│   ├── TaskManager.API.csproj
+│   ├── appsettings.json
 │   └── README.md
 ├── docs/                   # Documentation
 │   ├── README.md
 │   ├── architecture.md
 │   └── api-docs.md
-├── tests/                  # Test suites
-│   ├── client/
-│   ├── api/
-│   └── integration/
-├── .github/workflows/      # CI/CD pipelines
-│   ├── client-ci.yml
-│   ├── api-ci.yml
-│   └── deploy.yml
+├── sql/                    # Database schema and procedures
+│   ├── schema.sql
+│   ├── stored-procedures.sql
+│   └── README.md
 └── README.md
 ```
 
@@ -80,8 +72,7 @@ taskmanager/
 ### Prerequisites
 
 - Node.js 18+
-- SQL Server 2019+ or Azure SQL Database
-- Azure Functions Core Tools
+- .NET 8 SDK
 - Git
 
 ### Local Development Setup
@@ -92,75 +83,63 @@ taskmanager/
    cd taskmanager
    ```
 
-2. **Setup Database**
-   ```bash
-   # Run schema.sql and stored-procedures.sql in your SQL Server instance
-   # Or use Azure SQL Database
-   ```
-
-3. **Setup Backend**
+2. **Setup Backend**
    ```bash
    cd api
-   npm install
-   # Configure local.settings.json with your database connection string
-   npm start
+   dotnet restore
+   dotnet run
    ```
+   The API will be available at: http://localhost:5000
 
-4. **Setup Frontend**
+3. **Setup Frontend**
    ```bash
    cd client
    npm install
    npm run dev
    ```
+   The frontend will be available at: http://localhost:5173
 
-5. **Access the application**
+4. **Access the application**
    - Frontend: http://localhost:5173
-   - Backend: http://localhost:7071
+   - Backend API: http://localhost:5000
+   - API Documentation: http://localhost:5000/swagger
 
 ### Environment Configuration
 
-#### Backend (Azure Functions)
-Create `api/local.settings.json`:
+#### Backend (ASP.NET Core)
+The backend uses SQLite by default for local development. Configuration is in `api/appsettings.json`:
 ```json
 {
-  "IsEncrypted": false,
-  "Values": {
-    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-    "FUNCTIONS_WORKER_RUNTIME": "node",
-    "SQL_CONNECTION_STRING": "your_connection_string_here",
-    "JWT_SECRET": "your_jwt_secret_here"
+  "ConnectionStrings": {
+    "DefaultConnection": "Data Source=TaskManager.db"
+  },
+  "JwtSettings": {
+    "SecretKey": "your-secret-key-here",
+    "Issuer": "TaskManager",
+    "Audience": "TaskManagerUsers"
   }
 }
 ```
 
 #### Frontend
-Create `client/.env.local`:
+Create `client/.env.local` if needed:
 ```env
-VITE_API_BASE_URL=http://localhost:7071/api
+VITE_API_BASE_URL=http://localhost:5000/api
 VITE_APP_NAME=Task Manager
 ```
 
 ## 🧪 Testing
 
-### Run All Tests
+### Run Backend Tests
 ```bash
-# Frontend tests
-cd client && npm test
-
-# Backend tests
-cd api && npm test
-
-# Integration tests
-npm run test:integration
+cd api
+dotnet test
 ```
 
-### Test Coverage
+### Run Frontend Tests
 ```bash
-# Frontend coverage
-cd client && npm run test:coverage
-
-# Backend coverage
-cd api && npm run test:coverage
+cd client
+npm test
 ```
 
 ## 🚀 Deployment
@@ -168,42 +147,27 @@ cd api && npm run test:coverage
 ### Azure Deployment
 
 1. **Setup Azure Resources**
-   - Create Azure SQL Database
-   - Create Azure Functions App
-   - Create Azure Static Web App
+   - Create Azure App Service (for API)
+   - Create Azure Static Web App (for frontend)
+   - Create Azure SQL Database (for production database)
 
-2. **Configure GitHub Secrets**
-   ```bash
-   AZURE_CREDENTIALS
-   AZURE_FUNCTIONAPP_PUBLISH_PROFILE
-   AZURE_STATIC_WEB_APPS_API_TOKEN
-   AZURE_RESOURCE_GROUP
-   AZURE_SQL_SERVER
-   AZURE_SQL_USERNAME
-   AZURE_SQL_PASSWORD
-   ```
+2. **Configure Environment Variables**
+   - Update connection strings for production database
+   - Set JWT secret keys
+   - Configure CORS settings
 
 3. **Deploy**
    ```bash
-   # Manual deployment
-   git push origin main
+   # Deploy Backend
+   cd api
+   dotnet publish -c Release
+   # Deploy to Azure App Service
    
-   # Or trigger deployment workflow
-   # Go to GitHub Actions and run "Deploy to Azure"
+   # Deploy Frontend
+   cd client
+   npm run build
+   # Deploy dist/ folder to Azure Static Web Apps
    ```
-
-### Manual Deployment
-
-```bash
-# Deploy Backend
-cd api
-func azure functionapp publish <function-app-name>
-
-# Deploy Frontend
-cd client
-npm run build
-# Upload dist/ folder to Azure Static Web Apps
-```
 
 ## 📚 Documentation
 
@@ -211,20 +175,19 @@ npm run build
 - [API Documentation](./docs/api-docs.md) - Complete API reference
 - [Database Schema](./sql/README.md) - Database design and stored procedures
 - [Frontend Guide](./client/README.md) - React application guide
-- [Backend Guide](./api/README.md) - Azure Functions guide
-- [Testing Strategy](./tests/README.md) - Testing approach and examples
+- [Backend Guide](./api/README.md) - ASP.NET Core API guide
 
 ## 🔧 Development
 
 ### Code Style
 
-- **Frontend**: ESLint + Prettier
-- **Backend**: ESLint + Prettier
-- **Database**: SQL Server best practices
+- **Frontend**: ESLint + TypeScript
+- **Backend**: Built-in .NET formatting
+- **Database**: Entity Framework Code First
 
 ### Git Workflow
 
-1. Create feature branch from `develop`
+1. Create feature branch from `main`
 2. Make changes and add tests
 3. Run linting and tests
 4. Create pull request
@@ -233,12 +196,12 @@ npm run build
 ### Commit Convention
 
 ```
-feat: add user authentication
+feat: add task status management
 fix: resolve task creation issue
 docs: update API documentation
 style: format code with prettier
 refactor: improve database queries
-test: add unit tests for auth service
+test: add unit tests for task service
 ```
 
 ## 🤝 Contributing
@@ -268,18 +231,27 @@ For support and questions:
 - 📖 Check the [documentation](./docs/)
 - 🐛 Create an [issue](../../issues)
 - 💬 Join our [discussions](../../discussions)
-- 📧 Contact: support@taskmanager.com
 
 ## 🗺️ Roadmap
 
+### Current Features
+- ✅ Task CRUD operations
+- ✅ Status management (Pending, In Progress, Done)
+- ✅ Responsive design
+- ✅ RESTful API
+- ✅ SQLite database
+
 ### Upcoming Features
 
-- [ ] Real-time notifications
+- [ ] User authentication and authorization
+- [ ] Project management
+- [ ] Team collaboration
+- [ ] Comments system
 - [ ] File attachments
 - [ ] Time tracking
 - [ ] Advanced reporting
+- [ ] Real-time notifications
 - [ ] Mobile app
-- [ ] API rate limiting
 - [ ] Multi-language support
 
 ### Performance Improvements
@@ -292,7 +264,7 @@ For support and questions:
 ## 🙏 Acknowledgments
 
 - [React](https://reactjs.org/) - Frontend framework
-- [Azure Functions](https://azure.microsoft.com/services/functions/) - Serverless backend
-- [Material-UI](https://mui.com/) - UI component library
-- [SQL Server](https://www.microsoft.com/sql-server) - Database
-- [GitHub Actions](https://github.com/features/actions) - CI/CD
+- [ASP.NET Core](https://dotnet.microsoft.com/apps/aspnet) - Backend framework
+- [Tailwind CSS](https://tailwindcss.com/) - CSS framework
+- [Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) - ORM
+- [SQLite](https://www.sqlite.org/) - Database
