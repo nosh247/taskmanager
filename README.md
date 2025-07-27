@@ -173,9 +173,6 @@ npm test
 
 - [Architecture Decisions](./docs/architecture.md) - Technical decisions and rationale
 - [API Documentation](./docs/api-docs.md) - Complete API reference
-- [Database Schema](./sql/README.md) - Database design and stored procedures
-- [Frontend Guide](./client/README.md) - React application guide
-- [Backend Guide](./api/README.md) - ASP.NET Core API guide
 
 ## 🔧 Development
 

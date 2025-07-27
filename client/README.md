@@ -1,18 +1,13 @@
 # Task Manager Frontend
 
-A modern React-based frontend for the Task Manager API, built with TypeScript, Tailwind CSS, and Vite.
+React-based task manager with responsive UI.
 
 ## Features
 
-- 🎨 **Modern UI**: Beautiful, responsive design with Tailwind CSS
+- 🎨 **UI**: Responsive design with Tailwind CSS
 - 📱 **Mobile Friendly**: Responsive layout that works on all devices
-- 🌙 **Dark Mode**: Automatic dark mode support
-- ⚡ **Fast**: Built with Vite for lightning-fast development
-- 🔄 **Real-time Updates**: Instant UI updates when tasks are modified
-- 📊 **Task Statistics**: Visual overview of task status distribution
 - 🔍 **Filtering**: Filter tasks by status (All, Pending, In Progress, Done)
 - ✏️ **CRUD Operations**: Create, Read, Update, and Delete tasks
-- 🎯 **Status Management**: Quick status updates with dropdown selectors
 
 ## Tech Stack
 
@@ -95,59 +90,3 @@ Each task displays:
 - Due date (if set)
 - Current status with color coding
 - Creation and update timestamps
-
-### Filtering and Statistics
-- **Status Filter**: Filter tasks by Pending, In Progress, Done, or view all
-- **Statistics Cards**: See counts for total, pending, in-progress, and completed tasks
-- **Real-time Updates**: Statistics update automatically when tasks change
-
-## Styling
-
-The application uses Tailwind CSS with custom components defined in `src/index.css`:
-
-- `.btn-primary` - Primary action buttons (blue)
-- `.btn-secondary` - Secondary action buttons (gray)
-- `.input-field` - Form input styling
-- `.card` - Task card containers
-
-## Development
-
-### Adding New Features
-
-1. Create new components in the `components/` folder
-2. Add TypeScript interfaces in the `types/` folder
-3. Extend API services in `services/api.ts`
-4. Update the main App component as needed
-
-### Styling Guidelines
-
-- Use Tailwind utility classes for styling
-- Create custom components in `index.css` for reusable styles
-- Follow the existing color scheme and spacing patterns
-- Ensure responsive design for mobile devices
-
-## Troubleshooting
-
-### Common Issues
-
-1. **API Connection Error**: Make sure the backend is running on `http://localhost:5000`
-2. **CORS Errors**: The backend should have CORS configured (already done)
-3. **Build Errors**: Check TypeScript types and ensure all dependencies are installed
-
-### Development Tips
-
-- Use the browser's developer tools to inspect network requests
-- Check the console for any JavaScript errors
-- Use React Developer Tools for component debugging
-
-## Contributing
-
-1. Follow the existing code structure and patterns
-2. Use TypeScript for type safety
-3. Add proper error handling for API calls
-4. Test on different screen sizes for responsiveness
-5. Update this README when adding new features
-
-## License
-
-This project is part of the Task Manager application.
