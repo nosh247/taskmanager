@@ -1,6 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using TaskManager.API.Data;
 using TaskManager.API.Models;
+using TaskManager.API.Services;
+using dotenv.net;
+
+// Load .env file
+DotEnv.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,15 +19,78 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy.AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 // Add Entity Framework
 builder.Services.AddDbContext<TaskManagerContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlite(Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? "Data Source=TaskManager.db"));
+
+// Add JWT Service
+builder.Services.AddScoped<IJwtService, JwtService>();
+
+// Add Authentication
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true,
+        ValidIssuer = Environment.GetEnvironmentVariable("JWT_ISSUER"),
+        ValidAudience = Environment.GetEnvironmentVariable("JWT_AUDIENCE"),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Environment.GetEnvironmentVariable("JWT_SECRET") ?? throw new InvalidOperationException("JWT Secret not configured")))
+    };
+})
+.AddGoogle(options =>
+{
+    var clientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+    var clientSecret = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+
+    if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(clientSecret))
+    {
+        options.ClientId = clientId;
+        options.ClientSecret = clientSecret;
+    }
+})
+.AddMicrosoftAccount(options =>
+{
+    var clientId = Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_ID");
+    var clientSecret = Environment.GetEnvironmentVariable("MICROSOFT_CLIENT_SECRET");
+
+    if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(clientSecret))
+    {
+        options.ClientId = clientId;
+        options.ClientSecret = clientSecret;
+    }
+});
+
+// Add Authorization
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-app.UseHttpsRedirection();
+
+// Use CORS
+app.UseCors("AllowAll");
+
+app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

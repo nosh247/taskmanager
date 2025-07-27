@@ -1,74 +1,22 @@
 {
   "name": "taskmanager",
   "version": "1.0.0",
-  "description": "A comprehensive task management application built with React, Azure Functions, and SQL Server",
+  "description": "A comprehensive task management application built with React and .NET Core",
   "private": true,
-  "workspaces": [
-    "client",
-    "api"
-  ],
   "scripts": {
     "dev": "concurrently \"npm run dev:api\" \"npm run dev:client\"",
     "dev:client": "cd client && npm run dev",
-    "dev:api": "cd api && npm start",
-    "build": "npm run build:api && npm run build:client",
+    "dev:api": "cd api && dotnet run",
     "build:client": "cd client && npm run build",
-    "build:api": "cd api && npm run build",
-    "test": "npm run test:client && npm run test:api",
-    "test:client": "cd client && npm test",
-    "test:api": "cd api && npm test",
-    "test:integration": "npm run test:integration:api && npm run test:integration:client",
-    "test:integration:api": "cd api && npm run test:integration",
-    "test:integration:client": "cd client && npm run test:integration",
-    "test:e2e": "npm run test:e2e:client",
-    "test:e2e:client": "cd client && npm run test:e2e",
-    "test:coverage": "npm run test:coverage:client && npm run test:coverage:api",
-    "test:coverage:client": "cd client && npm run test:coverage",
-    "test:coverage:api": "cd api && npm run test:coverage",
-    "lint": "npm run lint:client && npm run lint:api",
-    "lint:client": "cd client && npm run lint",
-    "lint:api": "cd api && npm run lint",
-    "lint:fix": "npm run lint:fix:client && npm run lint:fix:api",
-    "lint:fix:client": "cd client && npm run lint:fix",
-    "lint:fix:api": "cd api && npm run lint:fix",
-    "install:all": "npm install && cd client && npm install && cd ../api && npm install",
-    "clean": "npm run clean:client && npm run clean:api",
-    "clean:client": "cd client && rm -rf node_modules dist coverage",
-    "clean:api": "cd api && rm -rf node_modules dist coverage",
-    "setup": "npm run setup:db && npm run install:all",
-    "setup:db": "echo 'Please run the SQL scripts in the sql/ directory to setup the database'",
-    "deploy": "npm run deploy:api && npm run deploy:client",
-    "deploy:api": "cd api && npm run deploy",
-    "deploy:client": "cd client && npm run deploy",
-    "docker:build": "docker-compose build",
-    "docker:up": "docker-compose up -d",
-    "docker:down": "docker-compose down",
-    "docker:logs": "docker-compose logs -f"
+    "build:api": "cd api && dotnet build",
+    "install:client": "cd client && npm install",
+    "clean:client": "cd client && rm -rf node_modules dist"
   },
   "devDependencies": {
-    "concurrently": "^7.6.0",
-    "cross-env": "^7.0.3"
+    "concurrently": "^7.6.0"
   },
   "engines": {
     "node": ">=18.0.0",
     "npm": ">=8.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/your-username/taskmanager.git"
-  },
-  "keywords": [
-    "task-management",
-    "react",
-    "azure-functions",
-    "sql-server",
-    "typescript",
-    "full-stack"
-  ],
-  "author": "Your Name <your.email@example.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/your-username/taskmanager/issues"
-  },
-  "homepage": "https://github.com/your-username/taskmanager#readme"
+  }
 } 

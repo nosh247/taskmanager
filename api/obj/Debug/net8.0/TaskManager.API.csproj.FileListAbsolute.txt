@@ -126,3 +126,14 @@ C:\Users\francisco\Documents\work\taskmanager\api\obj\Debug\net8.0\refint\TaskMa
 C:\Users\francisco\Documents\work\taskmanager\api\obj\Debug\net8.0\TaskManager.API.pdb
 C:\Users\francisco\Documents\work\taskmanager\api\obj\Debug\net8.0\TaskManager.API.genruntimeconfig.cache
 C:\Users\francisco\Documents\work\taskmanager\api\obj\Debug\net8.0\ref\TaskManager.API.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\dotenv.net.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.MicrosoftAccount.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\francisco\Documents\work\taskmanager\api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll

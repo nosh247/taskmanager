@@ -27,5 +27,12 @@ namespace TaskManager.API.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         
         public DateTime? UpdatedAt { get; set; }
+        
+        // Add these new properties for user relationships
+        public int? CreatedById { get; set; }
+        public User? CreatedByUser { get; set; }
+        
+        public int? AssignedToId { get; set; }
+        public User? AssignedToUser { get; set; }
     }
-} 
+}
